@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+search_pattern=$(osascript -e 'tell application "Swinsian"' \
+                           -e 'set current_track to current track' \
+                           -e 'set trackname to name of current_track' \
+                           -e 'set trackartist to artist of current_track' \
+                           -e 'set info to trackartist & ":" & trackname' \
+                           -e 'end tell'
+)
+search_pattern="${search_pattern// /_}"
+open http://lyrics.wikia.com/wiki/"$search_pattern"
